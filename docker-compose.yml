@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    image: app-img
+    container_name: app
+    restart: always
+    build:
+      dockerfile: Dockerfile.server
+    ports:
+      - '9000:9000'
+    env_file:
+      - .env
+    networks:
+      - my-app-network
+
+volumes:
+  db_data:
+  pgadmin_data:
+  cache:
+    driver: local
+
+networks:
+  my-app-network:
+    driver: bridge
