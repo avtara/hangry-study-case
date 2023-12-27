@@ -3,14 +3,9 @@ import express from 'express'
 import cors from 'cors' 
 import helmet from 'helmet'
 
-import {validateEnv} from './utils/validate-env'
-
-
 
 //App Varaibles 
 dotenv.config()
-
-validateEnv();
 
 //intializing the express app 
 const app = express(); 
