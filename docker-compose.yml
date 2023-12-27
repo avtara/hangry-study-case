@@ -1,9 +1,40 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres
+    container_name: app-db
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+      - initial.env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./src/database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my-app-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    container_name: app-db-ui
+    restart: always
+    ports:
+      - '8888:80'
+    env_file:
+      - initial.env
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - my-app-network
+
   app:
     image: app-img
     container_name: app
+    depends_on:
+      - db
     restart: always
     build:
       dockerfile: Dockerfile.server
