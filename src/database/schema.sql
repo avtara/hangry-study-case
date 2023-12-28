@@ -155,3 +155,87 @@ VALUES
         null :: varchar(255),
         null :: timestamp
     );
+
+CREATE TABLE IF NOT EXISTS menus(
+    id serial PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(9, 2) NOT NULL,
+    image text NOT NULL,
+    description text NOT NULL,
+    is_active BOOLEAN DEFAULT 'true' NOT NULL,
+    created_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    modified_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
+    modified_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    deleted_by VARCHAR(255),
+    deleted_at TIMESTAMP
+);
+CREATE INDEX idx_menu ON menus USING BTREE (id);
+
+INSERT INTO public.menus (id, name, price, image, description, is_active, created_by, created_at, modified_by,
+                          modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 'Moon Chicken - Paha'::varchar(255), 21000.00::numeric(9, 2),
+        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-1?_a=ATABlAA0'::text,
+        'Ayam dari Galaxy Bima Sakti dipadukan dengan bumbu korea', DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+        DEFAULT, null::varchar(255), null::timestamp);
+
+INSERT INTO public.menus (id, name, price, image, description, is_active, created_by, created_at, modified_by,
+                          modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 'Moon Chicken - Dada'::varchar(255), 25000.00::numeric(9, 2),
+        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-2?_a=ATABlAA0'::text,
+        'Ayam dari Galaxy Bima Sakti dipadukan dengan bumbu korea', DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+        DEFAULT, null::varchar(255), null::timestamp);
+
+INSERT INTO public.menus (id, name, price, image, description, is_active, created_by, created_at, modified_by,
+                          modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 'Moon Chicken - Combo'::varchar(255), 42000.00::numeric(9, 2),
+        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-3?_a=ATABlAA0'::text,
+        'Combo Ayam isi 2 dari Galaxy Bima Sakti dipadukan dengan bumbu korea', DEFAULT, DEFAULT,
+        DEFAULT, DEFAULT, DEFAULT, null::varchar(255), null::timestamp);
+
+CREATE TABLE IF NOT EXISTS store_menus(
+    id serial PRIMARY KEY,
+    menu_id INT,
+    store_id INT,
+    availability BOOLEAN DEFAULT FALSE,
+    is_active BOOLEAN DEFAULT 'true' NOT NULL,
+    created_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    modified_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
+    modified_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    deleted_by VARCHAR(255),
+    deleted_at TIMESTAMP
+);
+CREATE INDEX idx_store_menu ON store_menus USING BTREE (id);
+
+INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
+                                modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 1::integer, 1::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
+        null::timestamp);
+
+INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
+                                modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 1::integer, 2::integer, false::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+        null::varchar(255), null::timestamp);
+
+INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
+                                modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 2::integer, 1::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
+        null::timestamp);
+
+INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
+                                modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 2::integer, 2::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
+        null::timestamp);
+
+INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
+                                modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 3::integer, 1::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
+        null::timestamp);
+
+INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
+                                modified_at, deleted_by, deleted_at)
+VALUES (DEFAULT, 3::integer, 2::integer, false::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+        null::varchar(255), null::timestamp);
+
+

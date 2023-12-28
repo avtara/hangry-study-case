@@ -10,6 +10,35 @@ export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export type UserRole = "admin" | "guest" | "superadmin";
 
+export interface Menus {
+  created_at: Generated<Timestamp>;
+  created_by: Generated<string>;
+  deleted_at: Timestamp | null;
+  deleted_by: string | null;
+  description: string;
+  id: Generated<number>;
+  image: string;
+  is_active: Generated<boolean>;
+  modified_at: Generated<Timestamp>;
+  modified_by: Generated<string>;
+  name: string;
+  price: Numeric;
+}
+
+export interface StoreMenus {
+  availability: Generated<boolean | null>;
+  created_at: Generated<Timestamp>;
+  created_by: Generated<string>;
+  deleted_at: Timestamp | null;
+  deleted_by: string | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  menu_id: number | null;
+  modified_at: Generated<Timestamp>;
+  modified_by: Generated<string>;
+  store_id: number | null;
+}
+
 export interface Stores {
   created_at: Generated<Timestamp>;
   created_by: Generated<string>;
@@ -40,6 +69,8 @@ export interface Users {
 }
 
 export interface DB {
+  menus: Menus;
+  store_menus: StoreMenus;
   stores: Stores;
   users: Users;
 }
