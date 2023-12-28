@@ -28,6 +28,8 @@ import {
       _.db_user = process.env['DB_USER'];
       _.db_pass = process.env['DB_PASS'];
       _.port = process.env['PORT'];
+      _.frontend_origins = process.env['FRONTEND_ORIGINS'];
+      _.frontend_methods = process.env['FRONTEND_METHODS'];
   
       const validationCheck = ConfigModelSchema.safeParse(_);
   
