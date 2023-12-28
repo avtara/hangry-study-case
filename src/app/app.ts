@@ -6,6 +6,8 @@ import { ConfigService } from '../config';
 import { Middlewares } from './middlewares';
 import { LogService } from '../logger';
 import { OpenAPIController } from '../openapi/openapi.controller';
+import { AuthRoute } from './routers/auth.router';
+import { ProtectedRoute } from './routers/protect.router';
 
 @Service()
 export class App {
@@ -13,7 +15,9 @@ export class App {
     private readonly configService: ConfigService,
     private readonly middlewares: Middlewares,
     private readonly logService: LogService,
-    private readonly openApiController: OpenAPIController
+    private readonly openApiController: OpenAPIController,
+    private readonly authRoute: AuthRoute,
+    private readonly protectedRoute: ProtectedRoute
   ) {}
 
   setup() {
@@ -69,6 +73,9 @@ export class App {
     });
 
     app.use('/docs', this.openApiController.routes());
+
+    app.use("/auth", this.authRoute.routes())
+    app.use("/protected", this.protectedRoute.routes())
 
 
     app.use('*', this.middlewares.onNotFound.bind(this.middlewares));

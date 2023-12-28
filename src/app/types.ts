@@ -21,19 +21,24 @@ export enum HttpStatus {
     public data?: any = undefined;
     public success: boolean;
     public errorCode: AppErrorCode;
+    public message?: string = undefined;;
+    public meta?: any = undefined;
   
-    static OkResponse(data: any) {
+    static OkResponse(data: any, message: string) {
       const response = new ServerResponse();
       response.success = true;
       response.errorCode = AppErrorCode.NO_ERROR;
       response.data = data;
+      response.message = message;
       return response;
     }
   
-    static ErrorResponse(appErrorCode: AppErrorCode) {
+    static ErrorResponse(appErrorCode: AppErrorCode, errorMessage: string, meta: any) {
       const response = new ServerResponse();
       response.success = false;
       response.errorCode = appErrorCode;
+      response.message = errorMessage;
+      response.meta = meta;
       return response;
     }
   }

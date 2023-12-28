@@ -27,6 +27,7 @@ export const ConfigModelSchema = z.object({
       }
       return '*';
     }),
+    jwt_access_token: z.string().min(1),
 });
 
 export type ConfigModel = z.infer<typeof ConfigModelSchema>;

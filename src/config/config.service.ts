@@ -30,6 +30,7 @@ import {
       _.port = process.env['PORT'];
       _.frontend_origins = process.env['FRONTEND_ORIGINS'];
       _.frontend_methods = process.env['FRONTEND_METHODS'];
+      _.jwt_access_token = process.env['JWT_ACCESS_TOKEN'];
   
       const validationCheck = ConfigModelSchema.safeParse(_);
   

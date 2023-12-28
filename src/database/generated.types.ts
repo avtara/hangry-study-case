@@ -14,6 +14,7 @@ export interface Users {
   deleted_at: Timestamp | null;
   deleted_by: string | null;
   email: string;
+  id: Generated<number>;
   is_active: Generated<boolean>;
   modified_at: Generated<Timestamp>;
   modified_by: Generated<string>;
@@ -21,7 +22,6 @@ export interface Users {
   password: string;
   photo: string | null;
   role: Generated<UserRole | null>;
-  user_id: Generated<number>;
 }
 
 export interface DB {
