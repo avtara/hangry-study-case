@@ -550,3 +550,23 @@ VALUES
         null :: varchar(255),
         null :: timestamp
     );
+
+CREATE TYPE order_status AS ENUM('delivered', 'processing', 'cancelled');
+
+CREATE TABLE IF NOT EXISTS orders(
+    id serial PRIMARY KEY,
+    user_id INT,
+    cart_id INT,
+    status order_status DEFAULT 'processing',
+    total_amount DECIMAL(9, 2),
+    order_date TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    is_active BOOLEAN DEFAULT 'true' NOT NULL,
+    created_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    modified_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
+    modified_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
+    deleted_by VARCHAR(255),
+    deleted_at TIMESTAMP
+);
+
+CREATE INDEX idx_order ON orders USING BTREE (id);

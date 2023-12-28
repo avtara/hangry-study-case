@@ -28,6 +28,11 @@ export class CartRouter {
         this.middleware.isProtectedRoute.bind(this.middleware),
         this.cart.Delete,
     )
+    router.post(
+        "/checkout",
+        this.middleware.isProtectedRoute.bind(this.middleware),
+        this.cart.Checkout,
+    )
     return router;
   }
 }

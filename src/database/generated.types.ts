@@ -8,6 +8,8 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export type Numeric = ColumnType<string, number | string, number | string>;
 
+export type OrderStatus = "cancelled" | "delivered" | "processing";
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export type UserRole = "admin" | "guest" | "superadmin";
@@ -54,6 +56,22 @@ export interface Menus {
   modified_by: Generated<string>;
   name: string;
   price: Numeric;
+}
+
+export interface Orders {
+  cart_id: number | null;
+  created_at: Generated<Timestamp>;
+  created_by: Generated<string>;
+  deleted_at: Timestamp | null;
+  deleted_by: string | null;
+  id: Generated<number>;
+  is_active: Generated<boolean>;
+  modified_at: Generated<Timestamp>;
+  modified_by: Generated<string>;
+  order_date: Generated<Timestamp>;
+  status: Generated<OrderStatus | null>;
+  total_amount: Numeric | null;
+  user_id: number | null;
 }
 
 export interface StoreMenus {
@@ -103,6 +121,7 @@ export interface DB {
   cart_items: CartItems;
   carts: Carts;
   menus: Menus;
+  orders: Orders;
   store_menus: StoreMenus;
   stores: Stores;
   users: Users;

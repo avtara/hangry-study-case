@@ -36,7 +36,7 @@ export class CartController extends BaseController {
         ).innerJoin("stores", "carts.store_id", "stores.id").select((
           { fn, eb, ref },
         ) => [
-            "cart_id",
+          "cart_id",
           "stores.name",
           "carts.status",
           jsonArrayFrom(
@@ -55,7 +55,7 @@ export class CartController extends BaseController {
                     ${ref("cart_items.quantity")}
                   `.as("totalPrice"),
             ])
-            .whereRef("cart_items.cart_id", "=", "carts.id")
+              .whereRef("cart_items.cart_id", "=", "carts.id"),
           ).as("detail"),
         ]).where((eb) =>
           eb.and([
@@ -174,7 +174,7 @@ export class CartController extends BaseController {
         const message = "Menu not unavailable!";
         return this.badRequest(res, AppErrorCode.SERVER_NOT_REACHABLE, message);
       }
-      
+
       const cart_items = await db.selectFrom("cart_items").select([
         "id",
         "cart_items.menu_id",
@@ -193,7 +193,7 @@ export class CartController extends BaseController {
           menu_id: menu.id,
           cart_id: cart?.id,
           price: menu.price,
-          quantity: quantity
+          quantity: quantity,
         }).returning(["id", "quantity"]).executeTakeFirst();
 
         const message = "Success created data!";
@@ -228,8 +228,6 @@ export class CartController extends BaseController {
 
   Delete: RequestHandler = async (req: Request, res: Response) => {
     try {
-      const { id, quantity } = req.body;
-      const item = { id, quantity };
       const { authorization } = req.headers;
 
       if (authorization?.startsWith("Bearer ")) {
@@ -274,7 +272,97 @@ export class CartController extends BaseController {
       const message = "Success delete data!";
       return this.ok(res, {}, message);
     } catch (error: any) {
-      this.logService.error(error.message, "[CartController][GetActiveCart]");
+      this.logService.error(error.message, "[CartController][Delete]");
+      return this.serverError(
+        res,
+        AppErrorCode.SERVER_FAILURE,
+        error.message,
+        undefined,
+      );
+    }
+  };
+
+  Checkout: RequestHandler = async (req: Request, res: Response) => {
+    try {
+      const { authorization } = req.headers;
+
+      if (authorization?.startsWith("Bearer ")) {
+        this.token = authorization.substring(7, authorization.length);
+        this.jwtPayload = this.getUserPayloadFromAccessToken(
+          this.token,
+        ) as JwtPayload;
+      }
+
+      const db = Container.get(DB_TOKEN) as Kysely<DB>;
+      const cart = await db
+        .selectFrom("carts").innerJoin(
+          "cart_items",
+          "carts.id",
+          "cart_items.cart_id",
+        ).innerJoin("stores", "carts.store_id", "stores.id").select((
+          { fn, eb, ref },
+        ) => [
+            "carts.id",
+          "cart_id",
+          "stores.name",
+          "carts.status",
+          jsonArrayFrom(
+            eb.selectFrom("menus").innerJoin(
+              "cart_items",
+              "cart_items.menu_id",
+              "menus.id",
+            ).select([
+              "menus.name",
+              "cart_items.price",
+              "menus.image",
+              "cart_items.quantity",
+              sql<string>`
+                  ${ref("cart_items.price")}
+                  *
+                  ${ref("cart_items.quantity")}
+                `.as("totalPrice"),
+            ])
+              .whereRef("cart_items.cart_id", "=", "carts.id"),
+          ).as("detail"),
+        ]).where((eb) =>
+          eb.and([
+            eb("user_id", "=", this.jwtPayload.id),
+            eb("status", "=", "active"),
+          ])
+        )
+        .execute();
+
+
+
+      if (cart.length <= 0) {
+        const message = "Cart not found!";
+        return this.notFound(
+          res,
+          AppErrorCode.SERVER_NOT_REACHABLE,
+          message,
+        );
+      }
+      
+      const updateCart = await db.updateTable("carts").set({
+        status: "checked_out",
+      }).where(
+        "user_id",
+        "=",
+        this.jwtPayload.id,
+      ).returning(["id"]).executeTakeFirst();
+
+      let sum: number = 0;
+      cart[0].detail.forEach(a => sum += parseInt(a.totalPrice));
+      const order = await db.insertInto("orders").values({
+        cart_id: updateCart?.id,
+        user_id: this.jwtPayload.id,
+        total_amount: sum,
+      }).returning(["id"]).executeTakeFirst();
+
+      const message = "Success checkout cart!";
+      return this.ok(res, {}, message);
+    } catch (error: any) {
+      this.logService.error(error.message, "[CartController][Checkout]");
       return this.serverError(
         res,
         AppErrorCode.SERVER_FAILURE,
