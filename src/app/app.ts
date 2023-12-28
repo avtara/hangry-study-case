@@ -9,6 +9,7 @@ import { OpenAPIController } from '../openapi/openapi.controller';
 import { AuthRoute } from './routers/auth.router';
 import { ProtectedRoute } from './routers/protect.router';
 import { StoreRoutes } from './routers/store.router';
+import { CartRouter } from './routers/cart.router';
 
 @Service()
 export class App {
@@ -19,8 +20,8 @@ export class App {
     private readonly openApiController: OpenAPIController,
     private readonly authRoute: AuthRoute,
     private readonly protectedRoute: ProtectedRoute,
-    private readonly storeRoutes: StoreRoutes
-
+    private readonly storeRoutes: StoreRoutes,
+    private readonly cartRoute: CartRouter,
   ) {}
 
   setup() {
@@ -80,6 +81,7 @@ export class App {
     app.use("/auth", this.authRoute.routes())
     app.use("/protected", this.protectedRoute.routes())
     app.use("/stores", this.storeRoutes.routes())
+    app.use("/cart", this.cartRoute.routes())
 
 
     app.use('*', this.middlewares.onNotFound.bind(this.middlewares));

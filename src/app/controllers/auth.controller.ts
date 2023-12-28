@@ -69,6 +69,7 @@ export class AuthorizationService extends BaseController {
       const data = {
         name: newUser?.name,
         email: newUser?.email,
+        id: newUser?.id,
         accessToken: this.generateAccessToken({ id: newUser?.id }),
       };
       return this.created(res, data, message);
@@ -120,7 +121,7 @@ export class AuthorizationService extends BaseController {
         .where((eb) =>
           eb.and([
             eb("email", "=", email),
-            eb("deleted_at", "is", null),
+            // eb("deleted_at", "=", ),
           ])
         )
         .executeTakeFirst();
@@ -149,6 +150,7 @@ export class AuthorizationService extends BaseController {
       const data = {
         name: user?.name,
         email: user?.email,
+        id: user.id,
         accessToken: this.generateAccessToken({ id: user?.id }),
       };
       return this.created(res, data, message);

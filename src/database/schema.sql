@@ -170,28 +170,101 @@ CREATE TABLE IF NOT EXISTS menus(
     deleted_by VARCHAR(255),
     deleted_at TIMESTAMP
 );
+
 CREATE INDEX idx_menu ON menus USING BTREE (id);
 
-INSERT INTO public.menus (id, name, price, image, description, is_active, created_by, created_at, modified_by,
-                          modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 'Moon Chicken - Paha'::varchar(255), 21000.00::numeric(9, 2),
-        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-1?_a=ATABlAA0'::text,
-        'Ayam dari Galaxy Bima Sakti dipadukan dengan bumbu korea', DEFAULT, DEFAULT, DEFAULT, DEFAULT,
-        DEFAULT, null::varchar(255), null::timestamp);
+INSERT INTO
+    public.menus (
+        id,
+        name,
+        price,
+        image,
+        description,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        'Moon Chicken - Paha' :: varchar(255),
+        21000.00 :: numeric(9, 2),
+        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-1?_a=ATABlAA0' :: text,
+        'Ayam dari Galaxy Bima Sakti dipadukan dengan bumbu korea',
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.menus (id, name, price, image, description, is_active, created_by, created_at, modified_by,
-                          modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 'Moon Chicken - Dada'::varchar(255), 25000.00::numeric(9, 2),
-        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-2?_a=ATABlAA0'::text,
-        'Ayam dari Galaxy Bima Sakti dipadukan dengan bumbu korea', DEFAULT, DEFAULT, DEFAULT, DEFAULT,
-        DEFAULT, null::varchar(255), null::timestamp);
+INSERT INTO
+    public.menus (
+        id,
+        name,
+        price,
+        image,
+        description,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        'Moon Chicken - Dada' :: varchar(255),
+        25000.00 :: numeric(9, 2),
+        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-2?_a=ATABlAA0' :: text,
+        'Ayam dari Galaxy Bima Sakti dipadukan dengan bumbu korea',
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.menus (id, name, price, image, description, is_active, created_by, created_at, modified_by,
-                          modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 'Moon Chicken - Combo'::varchar(255), 42000.00::numeric(9, 2),
-        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-3?_a=ATABlAA0'::text,
-        'Combo Ayam isi 2 dari Galaxy Bima Sakti dipadukan dengan bumbu korea', DEFAULT, DEFAULT,
-        DEFAULT, DEFAULT, DEFAULT, null::varchar(255), null::timestamp);
+INSERT INTO
+    public.menus (
+        id,
+        name,
+        price,
+        image,
+        description,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        'Moon Chicken - Combo' :: varchar(255),
+        42000.00 :: numeric(9, 2),
+        'https://res.cloudinary.com/dgsgylfvr/image/upload/f_auto/v1/moon-chicken-website/home-about-gallery-3?_a=ATABlAA0' :: text,
+        'Combo Ayam isi 2 dari Galaxy Bima Sakti dipadukan dengan bumbu korea',
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
 CREATE TABLE IF NOT EXISTS store_menus(
     id serial PRIMARY KEY,
@@ -206,43 +279,189 @@ CREATE TABLE IF NOT EXISTS store_menus(
     deleted_by VARCHAR(255),
     deleted_at TIMESTAMP
 );
+
 CREATE INDEX idx_store_menu ON store_menus USING BTREE (id);
 
-INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
-                                modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 1::integer, 1::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
-        null::timestamp);
+INSERT INTO
+    public.store_menus (
+        id,
+        menu_id,
+        store_id,
+        availability,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        1 :: integer,
+        1 :: integer,
+        true :: boolean,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
-                                modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 1::integer, 2::integer, false::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,
-        null::varchar(255), null::timestamp);
+INSERT INTO
+    public.store_menus (
+        id,
+        menu_id,
+        store_id,
+        availability,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        1 :: integer,
+        2 :: integer,
+        false :: boolean,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
-                                modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 2::integer, 1::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
-        null::timestamp);
+INSERT INTO
+    public.store_menus (
+        id,
+        menu_id,
+        store_id,
+        availability,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        2 :: integer,
+        1 :: integer,
+        true :: boolean,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
-                                modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 2::integer, 2::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
-        null::timestamp);
+INSERT INTO
+    public.store_menus (
+        id,
+        menu_id,
+        store_id,
+        availability,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        2 :: integer,
+        2 :: integer,
+        true :: boolean,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
-                                modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 3::integer, 1::integer, true::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
-        null::timestamp);
+INSERT INTO
+    public.store_menus (
+        id,
+        menu_id,
+        store_id,
+        availability,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        3 :: integer,
+        1 :: integer,
+        true :: boolean,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-INSERT INTO public.store_menus (id, menu_id, store_id, availability, is_active, created_by, created_at, modified_by,
-                                modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 3::integer, 2::integer, false::boolean, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,
-        null::varchar(255), null::timestamp);
+INSERT INTO
+    public.store_menus (
+        id,
+        menu_id,
+        store_id,
+        availability,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        3 :: integer,
+        2 :: integer,
+        false :: boolean,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
-CREATE TYPE cart_status AS ENUM('active', 'checked_out');
+CREATE TYPE cart_status AS ENUM('active', 'checked_out', 'inactive');
 
 CREATE TABLE IF NOT EXISTS carts(
     id serial PRIMARY KEY,
     user_id INT,
+    store_id INT,
     status cart_status DEFAULT 'active',
     is_active BOOLEAN DEFAULT 'true' NOT NULL,
     created_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
@@ -252,20 +471,44 @@ CREATE TABLE IF NOT EXISTS carts(
     deleted_by VARCHAR(255),
     deleted_at TIMESTAMP
 );
+
 CREATE INDEX idx_cart ON carts USING BTREE (id);
 
-INSERT INTO public.carts (id, user_id, status, is_active, created_by, created_at, modified_by, modified_at, deleted_by,
-                          deleted_at)
-VALUES (DEFAULT, 1::integer, 'active'::cart_status, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, null::varchar(255),
-        null::timestamp);
-
+INSERT INTO
+    public.carts (
+        id,
+        user_id,
+        store_id,
+        status,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        1 :: integer,
+        1 :: integer,
+        'active' :: cart_status,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );
 
 CREATE TABLE IF NOT EXISTS cart_items(
     id serial PRIMARY KEY,
     cart_id INT,
     menu_id INT,
     quantity INT,
-    price DECIMAL(9,2),
+    price DECIMAL(9, 2),
     is_active BOOLEAN DEFAULT 'true' NOT NULL,
     created_by VARCHAR(255) DEFAULT 'SYSTEM' :: CHARACTER VARYING NOT NULL,
     created_at TIMESTAMP(0) DEFAULT NOW() NOT NULL,
@@ -274,10 +517,36 @@ CREATE TABLE IF NOT EXISTS cart_items(
     deleted_by VARCHAR(255),
     deleted_at TIMESTAMP
 );
+
 CREATE INDEX idx_cart_item ON cart_items USING BTREE (id);
 
-INSERT INTO public.cart_items (id, cart_id, menu_id, quantity, price, is_active, created_by, created_at, modified_by,
-                               modified_at, deleted_by, deleted_at)
-VALUES (DEFAULT, 1::integer, 1::integer, 1::integer, 21000.00::numeric(9, 2), DEFAULT, DEFAULT, DEFAULT, DEFAULT,
-        DEFAULT, null::varchar(255), null::timestamp);
-
+INSERT INTO
+    public.cart_items (
+        id,
+        cart_id,
+        menu_id,
+        quantity,
+        price,
+        is_active,
+        created_by,
+        created_at,
+        modified_by,
+        modified_at,
+        deleted_by,
+        deleted_at
+    )
+VALUES
+    (
+        DEFAULT,
+        1 :: integer,
+        1 :: integer,
+        1 :: integer,
+        21000.00 :: numeric(9, 2),
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        DEFAULT,
+        null :: varchar(255),
+        null :: timestamp
+    );

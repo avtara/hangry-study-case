@@ -38,7 +38,7 @@ export class BaseController {
     res: Response,
     code: AppErrorCode,
     errorMessage: string,
-    meta: any,
+    meta?: any,
   ) {
     return res
       .status(HttpStatus.BadRequest)
@@ -71,7 +71,7 @@ export class BaseController {
     return res.status(HttpStatus.NoContent).json();
   }
 
-  protected notFound(res: Response, code: AppErrorCode, data: any, meta: any) {
+  protected notFound(res: Response, code: AppErrorCode, data: any, meta?: any) {
     return res
       .status(HttpStatus.NotFound)
       .json(ServerResponse.ErrorResponse(code, data, meta));
