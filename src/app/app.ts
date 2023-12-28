@@ -8,6 +8,7 @@ import { LogService } from '../logger';
 import { OpenAPIController } from '../openapi/openapi.controller';
 import { AuthRoute } from './routers/auth.router';
 import { ProtectedRoute } from './routers/protect.router';
+import { StoreRoutes } from './routers/store.router';
 
 @Service()
 export class App {
@@ -17,7 +18,9 @@ export class App {
     private readonly logService: LogService,
     private readonly openApiController: OpenAPIController,
     private readonly authRoute: AuthRoute,
-    private readonly protectedRoute: ProtectedRoute
+    private readonly protectedRoute: ProtectedRoute,
+    private readonly storeRoutes: StoreRoutes
+
   ) {}
 
   setup() {
@@ -76,6 +79,7 @@ export class App {
 
     app.use("/auth", this.authRoute.routes())
     app.use("/protected", this.protectedRoute.routes())
+    app.use("/stores", this.storeRoutes.routes())
 
 
     app.use('*', this.middlewares.onNotFound.bind(this.middlewares));
