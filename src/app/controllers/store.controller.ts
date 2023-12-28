@@ -37,14 +37,14 @@ export class StoresController extends BaseController {
         ).limit(parseInt(limit as string, 10))
         .execute();
 
-      const stores = await db
+        const stores = await db
         .selectFrom("stores")
         .select(["name", "latitude", "longitude"])
         .select((eb) => [
           jsonArrayFrom(
-            eb.selectFrom("store_menus")
+            eb.selectFrom("store_menus").innerJoin("menus", "menus.id", "store_menus.menu_id").select(["menus.id","menus.name", "menus.price", "menus.description", "menus.image"])
               .select(["availability"])
-              .whereRef("store_menus.store_id", "=", "stores.id").select(["menus.id","menus.name", "menus.price", "menus.description", "menus.image"]).innerJoin("menus", "menus.id", "store_menus.menu_id")
+              .whereRef("store_menus.store_id", "=", "stores.id")
           ).as("menu"),
         ])
         .execute();
