@@ -6,7 +6,7 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export type UserRole = "admin" | "guest";
+export type UserRole = "admin" | "guest" | "superadmin";
 
 export interface Users {
   created_at: Generated<Timestamp>;
@@ -20,7 +20,6 @@ export interface Users {
   modified_by: Generated<string>;
   name: string;
   password: string;
-  photo: string | null;
   role: Generated<UserRole | null>;
 }
 

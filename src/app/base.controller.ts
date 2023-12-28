@@ -1,6 +1,5 @@
 import { Response } from "express";
 import { AppErrorCode, HttpStatus, ServerResponse } from "./types";
-import { JWT } from "./jwt/access.token";
 import Container, { Service } from "typedi";
 import { decodeToken, generateToken, verifyToken } from "../utils/jwt.helper";
 import { JwtPayload } from "jsonwebtoken";

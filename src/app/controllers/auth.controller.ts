@@ -1,11 +1,7 @@
-import {
-  Request,
-  RequestHandler,
-  Response,
-} from "express";
+import { Request, RequestHandler, Response } from "express";
 import Container, { Service } from "typedi";
 import { DB_TOKEN } from "../../database";
-import { Kysely} from "kysely";
+import { Kysely } from "kysely";
 import { DB } from "../../database/generated.types";
 import { BaseController } from "../base.controller";
 import { AppErrorCode } from "../types";
@@ -38,11 +34,17 @@ export class AuthorizationService extends BaseController {
       }
 
       const db = Container.get(DB_TOKEN) as Kysely<DB>;
-      const user = await db.selectFrom("users").select(["id"]).where(
-        "email",
-        "=",
-        email,
-      )
+      const user = await db
+        .selectFrom("users")
+        .select([
+          "id",
+        ])
+        .where((eb) =>
+          eb.and([
+            eb("email", "=", email),
+            eb("deleted_at", "is", null),
+          ])
+        )
         .executeTakeFirst();
 
       if (user) {
@@ -72,6 +74,16 @@ export class AuthorizationService extends BaseController {
       return this.created(res, data, message);
     } catch (error: any) {
       this.logService.error(error.message, "[AuthorizationService][Register]");
+      let message = error.message;
+      if (error.code === '23505') {
+        message = "Email already registered!"
+        return this.badRequest(
+          res,
+          AppErrorCode.SERVER_FAILURE,
+          message,
+          undefined,
+        );
+      }
       return this.serverError(
         res,
         AppErrorCode.SERVER_FAILURE,
@@ -97,12 +109,20 @@ export class AuthorizationService extends BaseController {
       }
 
       const db = Container.get(DB_TOKEN) as Kysely<DB>;
-      const user = await db.selectFrom("users").select([
-        "id",
-        "email",
-        "password",
-        "name",
-      ]).where("email", "=", email)
+      const user = await db
+        .selectFrom("users")
+        .select([
+          "id",
+          "email",
+          "password",
+          "name",
+        ])
+        .where((eb) =>
+          eb.and([
+            eb("email", "=", email),
+            eb("deleted_at", "is", null),
+          ])
+        )
         .executeTakeFirst();
 
       if (!user) {
