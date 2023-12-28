@@ -7,12 +7,6 @@ import { BaseController } from "../base.controller";
 import { AppErrorCode } from "../types";
 import { LogService } from "../../logger";
 import { jsonArrayFrom, jsonObjectFrom } from "kysely/helpers/postgres";
-import { compare, hash } from "../../utils/hash.helper";
-import {
-  LoginBodyRequestSchema,
-  RegisterBodyRequestSchema,
-} from "../validations";
-import { formatZodErrors } from "../../utils";
 
 @Service()
 export class StoresController extends BaseController {
@@ -54,8 +48,6 @@ export class StoresController extends BaseController {
           ).as("menu"),
         ])
         .execute();
-
-        console.log(stores);
 
         if (!stores) {
           const message = "Data not found!";
