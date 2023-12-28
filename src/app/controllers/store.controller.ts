@@ -50,7 +50,7 @@ export class StoresController extends BaseController {
           jsonArrayFrom(
             eb.selectFrom("store_menus")
               .select(["availability"])
-              .whereRef("store_menus.store_id", "=", "stores.id").select(["menus.name", "menus.price", "menus.description", "menus.image"]).innerJoin("menus", "menus.id", "store_menus.menu_id")
+              .whereRef("store_menus.store_id", "=", "stores.id").select(["menus.id","menus.name", "menus.price", "menus.description", "menus.image"]).innerJoin("menus", "menus.id", "store_menus.menu_id")
           ).as("menu"),
         ])
         .execute();
